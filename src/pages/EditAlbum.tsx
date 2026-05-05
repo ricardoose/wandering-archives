@@ -10,8 +10,8 @@ import {
   Trash2
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useAuth } from "@/src/App";
-import { useGoogleDrive } from "@/src/lib/drive";
+import { useAuth } from "@/App";
+import { useGoogleDrive } from "@/lib/drive";
 import { db } from "@/lib/firebase";
 import { 
   doc, 
@@ -25,7 +25,7 @@ import {
   addDoc
 } from "firebase/firestore";
 import axios from "axios";
-import { cn } from "@/src/lib/utils";
+import { cn } from "@/lib/utils";
 
 export default function EditAlbum() {
   const { id } = useParams();
