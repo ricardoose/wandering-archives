@@ -8,9 +8,9 @@ import {
   orderBy, 
   onSnapshot 
 } from "firebase/firestore";
-import { db, handleFirestoreError, OperationType } from "@/src/lib/firebase";
-import { Album, Photo } from "@/src/types";
-import { useGoogleDrive } from "@/src/lib/drive";
+import { db, handleFirestoreError, OperationType } from "@/lib/firebase";
+import { Album, Photo } from "@/types";
+import { useGoogleDrive } from "@/lib/drive";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   Lock, 
@@ -27,10 +27,10 @@ import {
   Plus
 } from "lucide-react";
 import axios from "axios";
-import { useAuth } from "@/src/App";
-import { cn } from "@/src/lib/utils";
-import PhotoEditor from "@/src/components/PhotoEditor";
-import CommentSection from "@/src/components/CommentSection";
+import { useAuth } from "@/App";
+import { cn } from "@/lib/utils";
+import PhotoEditor from "@/components/PhotoEditor";
+import CommentSection from "@/components/CommentSection";
 
 interface Filters {
   brightness: number;
