@@ -12,7 +12,7 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "@/src/App";
 import { useGoogleDrive } from "@/src/lib/drive";
-import { db } from "@/src/lib/firebase";
+import { db } from "@/lib/firebase";
 import { 
   doc, 
   getDoc, 
