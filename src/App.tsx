@@ -14,7 +14,7 @@ import {
   Globe,
   Plus
 } from "lucide-react";
-import { signInWithGoogle } from "@/src/lib/firebase";
+import { signInWithGoogle } from "@/lib/firebase";
 import { cn } from "@/src/lib/utils";
 import { AuthProvider, Navbar } from "./components/Navbar";
 import { GoogleDriveProvider } from "./lib/drive";
