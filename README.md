@@ -2,19 +2,46 @@
 <img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
 </div>
 
-# Run and deploy your AI Studio app
+# Wandering Archives - Deployed Webpage
 
-This contains everything you need to run your app locally.
+This React + Vite application is automatically deployed to GitHub Pages.
 
-View your app in AI Studio: https://ai.studio/apps/f86c1eb0-f049-48cd-8fb9-f292c1182700
+## 🌐 Live Site
+https://ricardoose.github.io/wandering-archives/
 
-## Run Locally
+## Local Development
 
-**Prerequisites:**  Node.js
-
+**Prerequisites:** Node.js 18+
 
 1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+   ```bash
+   npm install
+   ```
+
+2. Set the `GEMINI_API_KEY` in `.env.local` to your Gemini API key
+
+3. Run the development server:
+   ```bash
+   npm run dev
+   ```
+
+4. Build for production:
+   ```bash
+   npm run build
+   ```
+
+5. Preview the production build:
+   ```bash
+   npm run preview
+   ```
+
+## Deployment
+
+This repository uses GitHub Actions to automatically deploy to GitHub Pages on every push to the `main` branch.
+
+The deployment workflow:
+- Installs dependencies
+- Builds the Vite app
+- Deploys the `dist` folder to GitHub Pages
+
+View your app in AI Studio: https://ai.studio/apps/f86c1eb0-f049-48cd-8fb9-f292c1182700
