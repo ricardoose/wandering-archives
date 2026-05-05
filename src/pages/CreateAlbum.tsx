@@ -12,7 +12,7 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "@/src/App"; // Need to export useAuth from App or move to separate file
 import { useGoogleDrive } from "@/src/lib/drive";
-import { db } from "@/src/lib/firebase";
+import { db } from "@/lib/firebase";
 import { collection, addDoc, serverTimestamp, setDoc, doc } from "firebase/firestore";
 import axios from "axios";
 import { cn } from "@/src/lib/utils";
