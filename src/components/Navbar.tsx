@@ -9,7 +9,7 @@ import {
   Menu, 
   X,
 } from "lucide-react";
-import { auth, signInWithGoogle } from "@/src/lib/firebase";
+import { auth, signInWithGoogle } from "@/lib/firebase";
 import { onAuthStateChanged, User, signOut } from "firebase/auth";
 
 // --- Contexts ---
