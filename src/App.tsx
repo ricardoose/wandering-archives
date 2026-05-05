@@ -117,7 +117,7 @@ export default function App() {
   return (
     <AuthProvider>
       <GoogleDriveProvider>
-        <Router>
+        <>
           <div className="min-h-screen bg-paper font-sans text-ink selection:bg-accent/20">
             <Navbar />
             <main className="relative min-h-[80vh]">
