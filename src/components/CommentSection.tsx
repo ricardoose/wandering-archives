@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { MessageSquare, Send, Trash2, Loader2, User } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { db, handleFirestoreError, OperationType } from "@/src/lib/firebase";
+import { db, handleFirestoreError, OperationType } from "@/lib/firebase";
 import { 
   collection, 
   addDoc, 
@@ -12,8 +12,8 @@ import {
   doc, 
   serverTimestamp 
 } from "firebase/firestore";
-import { useAuth } from "@/src/App";
-import { cn } from "@/src/lib/utils";
+import { useAuth } from "@/App";
+import { cn } from "@/lib/utils";
 
 interface Comment {
   id: string;
