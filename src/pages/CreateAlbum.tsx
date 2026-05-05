@@ -11,11 +11,11 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "@/App"; // Need to export useAuth from App or move to separate file
-import { useGoogleDrive } from "@/src/lib/drive";
+import { useGoogleDrive } from "@/lib/drive";
 import { db } from "@/lib/firebase";
 import { collection, addDoc, serverTimestamp, setDoc, doc } from "firebase/firestore";
 import axios from "axios";
-import { cn } from "@/src/lib/utils";
+import { cn } from "@/lib/utils";
 
 export default function CreateAlbum() {
   const { user } = useAuth();
