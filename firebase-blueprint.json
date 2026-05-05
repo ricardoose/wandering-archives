@@ -1,0 +1,105 @@
+{
+  "entities": {
+    "Album": {
+      "title": "Album",
+      "description": "A collection of travel photos",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "description": "The name of the album" },
+        "description": { "type": "string", "description": "A brief description of the journey" },
+        "location": { "type": "string", "description": "Physical destination (e.g. Kyoto, Japan)" },
+        "coverImageUrl": { "type": "string", "description": "URL for the album cover photo" },
+        "ownerId": { "type": "string", "description": "UID of the user who created the album" },
+        "isProtected": { "type": "boolean", "description": "True if the album requires a password" },
+        "passwordHash": { "type": "string", "description": "Hashed password for protected galleries" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Timestamp when created" }
+      },
+      "required": ["title", "ownerId", "isProtected", "createdAt"]
+    },
+    "Photo": {
+      "title": "Photo",
+      "description": "An individual photo within an album",
+      "type": "object",
+      "properties": {
+        "albumId": { "type": "string", "description": "The ID of the parent album" },
+        "driveFileId": { "type": "string", "description": "Google Drive file ID" },
+        "driveThumbnailUrl": { "type": "string", "description": "Cached thumbnail URL from Drive" },
+        "caption": { "type": "string", "description": "Optional caption for the photo" },
+        "filters": {
+          "type": "object",
+          "properties": {
+            "brightness": { "type": "number" },
+            "contrast": { "type": "number" },
+            "saturation": { "type": "number" },
+            "sepia": { "type": "number" },
+            "grayscale": { "type": "number" }
+          }
+        },
+        "uploadedById": { "type": "string", "description": "UID of the uploader" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Timestamp when added" }
+      },
+      "required": ["albumId", "driveFileId", "uploadedById", "createdAt"]
+    },
+    "Comment": {
+      "title": "Comment",
+      "description": "A message left by a visitor in the guestbook",
+      "type": "object",
+      "properties": {
+        "albumId": { "type": "string" },
+        "authorName": { "type": "string" },
+        "content": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["albumId", "authorName", "content", "createdAt"]
+    },
+    "UserProfile": {
+      "title": "User Profile",
+      "description": "Storage for user-specific settings and tokens",
+      "type": "object",
+      "properties": {
+        "displayName": { "type": "string", "description": "User's display name" },
+        "driveFolderId": { "type": "string", "description": "Default folder ID for travel photos" },
+        "hasDriveAccess": { "type": "boolean", "description": "Whether Drive OAuth is completed" }
+      },
+      "required": ["displayName"]
+    }
+  },
+  "firestore": {
+    "/albums/{albumId}": {
+      "schema": "Album",
+      "description": "Collection of all travel albums"
+    },
+    "/albums/{albumId}/private/security": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "passwordHash": { "type": "string" }
+        }
+      },
+      "description": "Private security details for an album"
+    },
+    "/albums/{albumId}/photos/{photoId}": {
+      "schema": "Photo",
+      "description": "Photos inside a specific album"
+    },
+    "/albums/{albumId}/comments/{commentId}": {
+      "schema": "Comment",
+      "description": "Guestbook entries for an adventure"
+    },
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "Public user profile data"
+    },
+    "/users/{userId}/private/google": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "accessToken": { "type": "string" },
+          "refreshToken": { "type": "string" },
+          "expiryDate": { "type": "number" }
+        }
+      },
+      "description": "Private Google OAuth tokens"
+    }
+  }
+}

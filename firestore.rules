@@ -1,0 +1,79 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 1. Default Safety Net (Master deny)
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // --- Helpers ---
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    
+    function isOwner(ownerId) {
+      return isSignedIn() && request.auth.uid == ownerId;
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    // --- Core Collections ---
+
+    function albumIsProtected(albumId) {
+      return get(/databases/$(database)/documents/albums/$(albumId)).data.isProtected == true;
+    }
+
+    function canReadAlbumContent(albumId) {
+      let albumData = get(/databases/$(database)/documents/albums/$(albumId)).data;
+      return albumData.isProtected == false || isOwner(albumData.ownerId);
+    }
+
+    // Albums Collection
+    match /albums/{albumId} {
+      allow get, list: if true;
+      allow create: if isSignedIn() 
+        && incoming().ownerId == request.auth.uid
+        && incoming().title is string && incoming().title.size() <= 100
+        && incoming().location is string && incoming().location.size() <= 100;
+      allow update, delete: if isOwner(resource.data.ownerId);
+
+      // Photos Subcollection
+      match /photos/{photoId} {
+        allow get, list: if canReadAlbumContent(albumId);
+        allow create: if isSignedIn() && isOwner(get(/databases/$(database)/documents/albums/$(albumId)).data.ownerId);
+        allow update, delete: if isSignedIn() && isOwner(resource.data.uploadedById);
+      }
+
+      // Guestbook Comments Subcollection
+      match /comments/{commentId} {
+        allow get, list: if canReadAlbumContent(albumId);
+        allow create: if isSignedIn() 
+          && incoming().albumId == albumId
+          && incoming().content is string && incoming().content.size() <= 1000;
+        allow delete: if isSignedIn() && (
+          isOwner(resource.data.authorId) || 
+          isOwner(get(/databases/$(database)/documents/albums/$(albumId)).data.ownerId)
+        );
+      }
+
+      // Security Subcollection (Strictly private)
+      match /private/security {
+        allow read: if false;
+        allow create, update: if isSignedIn() && isOwner(get(/databases/$(database)/documents/albums/$(albumId)).data.ownerId);
+      }
+    }
+
+    // User Profiles
+    match /users/{userId} {
+      allow get: if true;
+      allow list: if true;
+      allow write: if isOwner(userId);
+      
+      match /private/google {
+        allow read, write: if isOwner(userId);
+      }
+    }
+  }
+}
