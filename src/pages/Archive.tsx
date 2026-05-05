@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
-import { db, handleFirestoreError, OperationType } from "@/src/lib/firebase";
+import { db, handleFirestoreError, OperationType } from "@/lib/firebase";
 import { Album } from "@/src/types";
 import { motion } from "framer-motion";
 import { 
