@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { X, Sliders, Check, RotateCcw } from "lucide-react";
 import { motion } from "framer-motion";
-import { db } from "@/src/lib/firebase";
+import { db } from "@/lib/firebase";
 import { doc, updateDoc } from "firebase/firestore";
-import { cn } from "@/src/lib/utils";
+import { cn } from "@/lib/utils";
 
 interface Filters {
   brightness: number;
